@@ -200,6 +200,7 @@ namespace BookCurlPro
                     papers[i].Back.transform.SetParent(BookPanel.transform);
                     papers[i].Back.transform.SetSiblingIndex(i);
                     BookUtility.CopyTransform(LeftPageTransform.transform, papers[i].Back.transform);
+                    Debug.Log("1");
                 }
 
                 //Show the front page of all next papers
@@ -208,6 +209,8 @@ namespace BookCurlPro
                     BookUtility.ShowPage(papers[i].Front);
                     papers[i].Front.transform.SetSiblingIndex(papers.Length - i + previousPaper);
                     BookUtility.CopyTransform(RightPageTransform.transform, papers[i].Front.transform);
+                    Debug.Log("2");
+
                 }
 
             }
@@ -220,6 +223,8 @@ namespace BookCurlPro
                     //papers[previousPaper].Back.transform.SetParent(BookPanel.transform);
                     //papers[previousPaper].Back.transform.SetSiblingIndex(previousPaper);
                     BookUtility.CopyTransform(LeftPageTransform.transform, papers[previousPaper].Back.transform);
+                    Debug.Log("3");
+
                 }
                 //show front of current page only
                 if (currentPaper <= papers.Length - 1)
@@ -227,7 +232,7 @@ namespace BookCurlPro
                     BookUtility.ShowPage(papers[currentPaper].Front);
                     papers[currentPaper].Front.transform.SetSiblingIndex(papers.Length - currentPaper + previousPaper);
                     BookUtility.CopyTransform(RightPageTransform.transform, papers[currentPaper].Front.transform);
-
+                    Debug.Log("Show last Page and attach thos");
                 }
             }
             #region Shadow Effect
