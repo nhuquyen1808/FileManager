@@ -171,16 +171,17 @@ namespace BookCurlPro
                 Vector2 localPos = BookPanel.InverseTransformPoint(mouseScreenPos);
                 return localPos;
             }
-
+             
         }
 
         /// <summary>
         /// Update page orders
         /// This function should be called whenever the current page changed, the dragging of the page started or the page has been flipped
         /// </summary>
+        public int previousPaper;
         public void UpdatePages()
         {
-            int previousPaper = pageDragging ? currentPaper - 2 : currentPaper - 1;
+             previousPaper = pageDragging ? currentPaper - 2 : currentPaper - 1;
 
             //Hide all pages
             for (int i = 0; i < papers.Length; i++)
@@ -194,23 +195,20 @@ namespace BookCurlPro
             if (hasTransparentPages)
             {
                 //Show the back page of all previous papers
+
                 for (int i = 0; i <= previousPaper; i++)
                 {
                     BookUtility.ShowPage(papers[i].Back);
                     papers[i].Back.transform.SetParent(BookPanel.transform);
                     papers[i].Back.transform.SetSiblingIndex(i);
                     BookUtility.CopyTransform(LeftPageTransform.transform, papers[i].Back.transform);
-                    Debug.Log("1");
                 }
-
                 //Show the front page of all next papers
                 for (int i = papers.Length - 1; i >= currentPaper; i--)
                 {
                     BookUtility.ShowPage(papers[i].Front);
                     papers[i].Front.transform.SetSiblingIndex(papers.Length - i + previousPaper);
                     BookUtility.CopyTransform(RightPageTransform.transform, papers[i].Front.transform);
-                    Debug.Log("2");
-
                 }
 
             }
@@ -223,7 +221,6 @@ namespace BookCurlPro
                     //papers[previousPaper].Back.transform.SetParent(BookPanel.transform);
                     //papers[previousPaper].Back.transform.SetSiblingIndex(previousPaper);
                     BookUtility.CopyTransform(LeftPageTransform.transform, papers[previousPaper].Back.transform);
-                    Debug.Log("3");
 
                 }
                 //show front of current page only
@@ -232,7 +229,6 @@ namespace BookCurlPro
                     BookUtility.ShowPage(papers[currentPaper].Front);
                     papers[currentPaper].Front.transform.SetSiblingIndex(papers.Length - currentPaper + previousPaper);
                     BookUtility.CopyTransform(RightPageTransform.transform, papers[currentPaper].Front.transform);
-                    Debug.Log("Show last Page and attach thos");
                 }
             }
             #region Shadow Effect
@@ -295,6 +291,8 @@ namespace BookCurlPro
         }
         public void DragRightPageToPoint(Vector3 point)
         {
+            Debug.Log("DragRightPageToPoint");
+
             if (currentPaper > EndFlippingPaper) return;
             pageDragging = true;
             mode = FlipMode.RightToLeft;
@@ -332,6 +330,8 @@ namespace BookCurlPro
         }
         public void DragLeftPageToPoint(Vector3 point)
         {
+            Debug.Log("DragLeftPageToPoint");
+
             if (currentPaper <= StartFlippingPaper) return;
             pageDragging = true;
             mode = FlipMode.LeftToRight;
@@ -404,6 +404,7 @@ namespace BookCurlPro
         /// </summary>
         public void Flip()
         {
+
             pageDragging = false;
 
             if (mode == FlipMode.LeftToRight)

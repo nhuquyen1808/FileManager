@@ -5,6 +5,9 @@ namespace BookCurlPro
 {
     public class Tween : MonoBehaviour
     {
+        public BookPro bookPro;
+
+
 
         Vector3 from, to;
         float duration;
@@ -12,9 +15,7 @@ namespace BookCurlPro
         Action finish;
         float elapsedtime = 0;
         bool working = false;
-        public static Vector3 ValueTo(GameObject obj,
-            Vector3 from, Vector3 to, float duration,
-            Action<Vector3> update = null, Action finish = null)
+        public static Vector3 ValueTo(GameObject obj,Vector3 from, Vector3 to, float duration, Action<Vector3> update = null, Action finish = null)
         {
             Tween tween = obj.GetComponent<Tween>();
             if (!tween)
@@ -28,6 +29,7 @@ namespace BookCurlPro
             tween.update = update;
             tween.finish = finish;
             return Vector3.zero;
+           
         }
         static Vector3 QuadOut(Vector3 start, Vector3 end, float duration, float elapsedTime)
         {
@@ -54,9 +56,17 @@ namespace BookCurlPro
                     if (finish != null)
                     {
                         finish();
+                        Debug.Log("FINISHHHHH then show tag");
+                       // ShowPageShowed();
                     }
                 }
             }
+        }
+
+        public void ShowPageShowed()
+        {
+            Debug.Log("LEFT PAGE : " + bookPro.previousPaper + " RIGHT PAGE  :   "+  bookPro.currentPaper);
+            Debug.Log("LEFT PAGE : " + bookPro.papers[bookPro.previousPaper].Back.transform.name + " RIGHT PAGE  :   "+ bookPro.papers[bookPro.currentPaper].Front.transform.name);
         }
     }
 }

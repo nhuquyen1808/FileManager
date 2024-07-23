@@ -11,8 +11,8 @@ public class FileManager : MonoBehaviour
     public string path;
     public void OpenFileExplorer()
     {
-        path = EditorUtility.OpenFilePanel("Show all images (.png) ", "", "png");
-
+       // path = EditorUtility.OpenFilePanel("Show all images (.png) ", "", "png");
+//
         StartCoroutine(GetTexture());
     }
 
